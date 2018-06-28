@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>HttpClient</members>
+        <members>HttpCalloutException</members>
+        <members>ICredentialsProvider</members>
+        <members>BasicProvider</members>
+        <members>OAuthProvider</members>
+        <members>NamedCredentialsProvider</members>
+        <name>ApexClass</name>
+    </types>
+    <version>43.0</version>
+</Package>
