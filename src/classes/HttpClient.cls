@@ -1,40 +1,41 @@
-public with sharing class HttpClient {
-
-    public ICredentialsProvider credentials { get; set; }
+public with sharing virtual class HttpClient {
+    final static Integer CALLOUT_TIMEOUT = 20000;
+    public HttpClientProviderInterface credentials { get; set; }
 
     public HttpClient(){}
 
-    public HttpClient(ICredentialsProvider credentials) {
+    public HttpClient(HttpClientProviderInterface credentials) {
         this.credentials = credentials;
     }
 
-    public HttpResponse get(String endpoint) {
+    public virtual Object get(String endpoint) {
         return callout(endpoint, '', 'GET');
     }
 
-    public HttpResponse post(String endpoint, String payload) {
+    public virtual Object post(String endpoint, String payload) {
         return callout(endpoint, payload, 'POST');
     }
 
-    public HttpResponse put(String endpoint, String payload) {
+    public virtual Object put(String endpoint, String payload) {
         return callout(endpoint, payload, 'PUT');
     }
 
-    public HttpResponse patch(String endpoint, String payload) {
+    public virtual Object patch(String endpoint, String payload) {
         return callout(endpoint, payload, 'PATCH');
     }
 
-    public HttpResponse del(String endpoint) {
+    public virtual Object del(String endpoint) {
         return callout(endpoint, '', 'DELETE');
     }
 
-    public HttpResponse head(String endpoint) {
+    public virtual Object head(String endpoint) {
         return callout(endpoint, '', 'HEAD');
     }
 
     public HttpResponse callout(String endpoint, String payload, String method) {
         Http http = new Http();
         HttpRequest request = new HttpRequest();
+        request.setTimeout(CALLOUT_TIMEOUT);
         request.setEndpoint(endpoint);
         request.setMethod(method);
         if(new String[]{'POST', 'PATCH', 'PUT'}.contains( method )){
@@ -43,11 +44,14 @@ public with sharing class HttpClient {
         }
 
         if(credentials != null) {
-            if(credentials instanceof NamedCredentialsProvider) {
+            if(credentials instanceof HttpClientProviderNamedCredentials) {
                 endpoint = endpoint.startsWith('/') ? endpoint : '/' + endpoint;
                 request.setEndpoint(credentials.getHeader() + endpoint);
-            }
-            else {
+            } else if(credentials instanceof HttpClientProviderCookie) {
+                request.setHeader('Cookie', credentials.getHeader());
+            } else if(credentials instanceof HttpClientProviderBearer) {
+                request.setHeader('Authorization', credentials.getHeader());
+            } else {
                 request.setHeader('Authorization', credentials.getHeader());
             }
         }

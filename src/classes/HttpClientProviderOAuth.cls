@@ -1,10 +1,10 @@
-public class OAuthProvider implements ICredentialsProvider {
+public class HttpClientProviderOAuth implements HttpClientProviderInterface {
 
     public String accessToken { get; set; }
     public String authenticationUrl { get; set; }
     private Map<String, String> authParameters { get; set; }
 
-    public OAuthProvider(String authenticationUrl, Map<String, String> authParameters) {
+    public HttpClientProviderOAuth(String authenticationUrl, Map<String, String> authParameters) {
         this.authenticationUrl = authenticationUrl;
         this.authParameters = authParameters;
     }

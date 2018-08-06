@@ -1,8 +1,8 @@
-public class NamedCredentialsProvider implements ICredentialsProvider {
+public class HttpClientProviderNamedCredentials implements HttpClientProviderInterface {
 
     private String namedCredentials { get; set; }
 
-    public NamedCredentialsProvider(String namedCredentialsName) {
+    public HttpClientProviderNamedCredentials(String namedCredentialsName) {
         this.namedCredentials = namedCredentialsName;
     }
 

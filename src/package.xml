@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
-        <members>HttpClient</members>
         <members>HttpCalloutException</members>
-        <members>ICredentialsProvider</members>
-        <members>BasicProvider</members>
-        <members>OAuthProvider</members>
-        <members>NamedCredentialsProvider</members>
-        <members>HttpClientTests</members>
-        <members>HttpClientMock</members>
-        <members>HttpClientOAuthMock</members>
+        <members>HttpClient</members>
+        <members>HttpClientAura</members>
         <members>HttpClientBasicMock</members>
+        <members>HttpClientMock</members>
+        <members>NamedCredentialsProvider</members>
         <members>HttpClientNamedCredentialsMock</members>
+        <members>HttpClientOAuthMock</members>
+        <members>HttpClientProviderAuthProvider</members>
+        <members>HttpClientProviderBasic</members>
+        <members>HttpClientProviderBearer</members>
+        <members>HttpClientProviderCookie</members>
+        <members>HttpClientProviderInterface</members>
+        <members>HttpClientProviderNamedCredentials</members>
+        <members>HttpClientProviderOAuth</members>
+        <members>HttpClientTests</members>
         <name>ApexClass</name>
     </types>
     <version>43.0</version>

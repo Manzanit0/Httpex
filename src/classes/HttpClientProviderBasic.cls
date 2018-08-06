@@ -1,9 +1,9 @@
-public class BasicProvider implements ICredentialsProvider {
+public class HttpClientProviderBasic implements HttpClientProviderInterface {
 
     private String username { get; set; }
     private String password { get; set; }
 
-    public BasicProvider(String username, String password) {
+    public HttpClientProviderBasic(String username, String password) {
         this.username = username;
         this.password = password;
     }

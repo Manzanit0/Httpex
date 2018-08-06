@@ -22,7 +22,7 @@ public class HttpClientTests {
         HttpClient client = new HttpClient();
 
         // Act
-        HttpResponse res = client.post(ENDPOINT, PAYLOAD_REQUEST);
+        HttpResponse res = (HttpResponse) client.post(ENDPOINT, PAYLOAD_REQUEST);
 
         // Assert
         System.assertEquals(null, client.credentials);
@@ -35,13 +35,13 @@ public class HttpClientTests {
         // Arange
         Test.setMock(HttpCalloutMock.class, new HttpClientBasicMock('POST'));
 
-        HttpClient client = new HttpClient(new BasicProvider(AUTH_BASIC_USERNAME, AUTH_BASIC_PASSWORD));
+        HttpClient client = new HttpClient(new HttpClientProviderBasic(AUTH_BASIC_USERNAME, AUTH_BASIC_PASSWORD));
 
         // Act
-        HttpResponse res = client.post(ENDPOINT, PAYLOAD_REQUEST);
+        HttpResponse res = (HttpResponse) client.post(ENDPOINT, PAYLOAD_REQUEST);
 
         // Assert
-        System.assert(client.credentials instanceof BasicProvider);
+        System.assert(client.credentials instanceof HttpClientProviderBasic);
         System.assertEquals(PAYLOAD_RESPONSE, res.getBody());
         System.assertEquals(200, res.getStatusCode());
     }
@@ -52,16 +52,16 @@ public class HttpClientTests {
         Test.setMock(HttpCalloutMock.class, new HttpClientOAuthMock('POST'));
 
         HttpClient client = new HttpClient(
-                new OAuthProvider(AUTH_OAUTH_ENDPOINT, new Map<String, String>{
+                new HttpClientProviderOAuth(AUTH_OAUTH_ENDPOINT, new Map<String, String>{
                         'clientId' => 'clientId_value',
                         'clientSecret' => 'clientSecret_value'
         }));
 
         // Act
-        HttpResponse res = client.post(ENDPOINT, PAYLOAD_REQUEST);
+        HttpResponse res =(HttpResponse)  client.post(ENDPOINT, PAYLOAD_REQUEST);
 
         // Assert
-        System.assert(client.credentials instanceof OAuthProvider);
+        System.assert(client.credentials instanceof HttpClientProviderOAuth);
         System.assertEquals(PAYLOAD_RESPONSE, res.getBody());
         System.assertEquals(200, res.getStatusCode());
         System.assertEquals(2, Limits.getCallouts());
@@ -72,13 +72,13 @@ public class HttpClientTests {
         // Arange
         Test.setMock(HttpCalloutMock.class, new HttpClientNamedCredentialsMock('POST'));
 
-        HttpClient client = new HttpClient(new NamedCredentialsProvider(AUTH_NAMEDCREDENTIALS_NAME));
+        HttpClient client = new HttpClient(new HttpClientProviderNamedCredentials(AUTH_NAMEDCREDENTIALS_NAME));
 
         // Act
-        HttpResponse res = client.post(ENDPOINT, PAYLOAD_REQUEST);
+        HttpResponse res = (HttpResponse) client.post(ENDPOINT, PAYLOAD_REQUEST);
 
         // Assert
-        System.assert(client.credentials instanceof NamedCredentialsProvider);
+        System.assert(client.credentials instanceof HttpClientProviderNamedCredentials);
         System.assertEquals(PAYLOAD_RESPONSE, res.getBody());
         System.assertEquals(200, res.getStatusCode());
     }
@@ -90,7 +90,7 @@ public class HttpClientTests {
         HttpClient client = new HttpClient();
 
         // Act
-        HttpResponse res = client.put(ENDPOINT, PAYLOAD_REQUEST);
+        HttpResponse res = (HttpResponse) client.put(ENDPOINT, PAYLOAD_REQUEST);
 
         // Assert
         System.assertEquals(null, client.credentials);
@@ -103,13 +103,13 @@ public class HttpClientTests {
         // Arange
         Test.setMock(HttpCalloutMock.class, new HttpClientBasicMock('PUT'));
 
-        HttpClient client = new HttpClient(new BasicProvider(AUTH_BASIC_USERNAME, AUTH_BASIC_PASSWORD));
+        HttpClient client = new HttpClient(new HttpClientProviderBasic(AUTH_BASIC_USERNAME, AUTH_BASIC_PASSWORD));
 
         // Act
-        HttpResponse res = client.put(ENDPOINT, PAYLOAD_REQUEST);
+        HttpResponse res = (HttpResponse) client.put(ENDPOINT, PAYLOAD_REQUEST);
 
         // Assert
-        System.assert(client.credentials instanceof BasicProvider);
+        System.assert(client.credentials instanceof HttpClientProviderBasic);
         System.assertEquals(PAYLOAD_RESPONSE, res.getBody());
         System.assertEquals(200, res.getStatusCode());
     }
@@ -120,16 +120,16 @@ public class HttpClientTests {
         Test.setMock(HttpCalloutMock.class, new HttpClientOAuthMock('PUT'));
 
         HttpClient client = new HttpClient(
-                new OAuthProvider(AUTH_OAUTH_ENDPOINT, new Map<String, String>{
+                new HttpClientProviderOAuth(AUTH_OAUTH_ENDPOINT, new Map<String, String>{
                         'clientId' => 'clientId_value',
                         'clientSecret' => 'clientSecret_value'
                 }));
 
         // Act
-        HttpResponse res = client.put(ENDPOINT, PAYLOAD_REQUEST);
+        HttpResponse res = (HttpResponse) client.put(ENDPOINT, PAYLOAD_REQUEST);
 
         // Assert
-        System.assert(client.credentials instanceof OAuthProvider);
+        System.assert(client.credentials instanceof HttpClientProviderOAuth);
         System.assertEquals(PAYLOAD_RESPONSE, res.getBody());
         System.assertEquals(200, res.getStatusCode());
         System.assertEquals(2, Limits.getCallouts());
@@ -140,13 +140,13 @@ public class HttpClientTests {
         // Arange
         Test.setMock(HttpCalloutMock.class, new HttpClientNamedCredentialsMock('PUT'));
 
-        HttpClient client = new HttpClient(new NamedCredentialsProvider(AUTH_NAMEDCREDENTIALS_NAME));
+        HttpClient client = new HttpClient(new HttpClientProviderNamedCredentials(AUTH_NAMEDCREDENTIALS_NAME));
 
         // Act
-        HttpResponse res = client.put(ENDPOINT, PAYLOAD_REQUEST);
+        HttpResponse res = (HttpResponse) client.put(ENDPOINT, PAYLOAD_REQUEST);
 
         // Assert
-        System.assert(client.credentials instanceof NamedCredentialsProvider);
+        System.assert(client.credentials instanceof HttpClientProviderNamedCredentials);
         System.assertEquals(PAYLOAD_RESPONSE, res.getBody());
         System.assertEquals(200, res.getStatusCode());
     }
@@ -158,7 +158,7 @@ public class HttpClientTests {
         HttpClient client = new HttpClient();
 
         // Act
-        HttpResponse res = client.patch(ENDPOINT, PAYLOAD_REQUEST);
+        HttpResponse res =(HttpResponse)  client.patch(ENDPOINT, PAYLOAD_REQUEST);
 
         // Assert
         System.assertEquals(null, client.credentials);
@@ -171,13 +171,13 @@ public class HttpClientTests {
         // Arange
         Test.setMock(HttpCalloutMock.class, new HttpClientBasicMock('PATCH'));
 
-        HttpClient client = new HttpClient(new BasicProvider(AUTH_BASIC_USERNAME, AUTH_BASIC_PASSWORD));
+        HttpClient client = new HttpClient(new HttpClientProviderBasic(AUTH_BASIC_USERNAME, AUTH_BASIC_PASSWORD));
 
         // Act
-        HttpResponse res = client.patch(ENDPOINT, PAYLOAD_REQUEST);
+        HttpResponse res = (HttpResponse) client.patch(ENDPOINT, PAYLOAD_REQUEST);
 
         // Assert
-        System.assert(client.credentials instanceof BasicProvider);
+        System.assert(client.credentials instanceof HttpClientProviderBasic);
         System.assertEquals(PAYLOAD_RESPONSE, res.getBody());
         System.assertEquals(200, res.getStatusCode());
     }
@@ -188,16 +188,16 @@ public class HttpClientTests {
         Test.setMock(HttpCalloutMock.class, new HttpClientOAuthMock('PATCH'));
 
         HttpClient client = new HttpClient(
-                new OAuthProvider(AUTH_OAUTH_ENDPOINT, new Map<String, String>{
+                new HttpClientProviderOAuth(AUTH_OAUTH_ENDPOINT, new Map<String, String>{
                         'clientId' => 'clientId_value',
                         'clientSecret' => 'clientSecret_value'
                 }));
 
         // Act
-        HttpResponse res = client.patch(ENDPOINT, PAYLOAD_REQUEST);
+        HttpResponse res = (HttpResponse) client.patch(ENDPOINT, PAYLOAD_REQUEST);
 
         // Assert
-        System.assert(client.credentials instanceof OAuthProvider);
+        System.assert(client.credentials instanceof HttpClientProviderOAuth);
         System.assertEquals(PAYLOAD_RESPONSE, res.getBody());
         System.assertEquals(200, res.getStatusCode());
         System.assertEquals(2, Limits.getCallouts());
@@ -208,13 +208,13 @@ public class HttpClientTests {
         // Arange
         Test.setMock(HttpCalloutMock.class, new HttpClientNamedCredentialsMock('PATCH'));
 
-        HttpClient client = new HttpClient(new NamedCredentialsProvider(AUTH_NAMEDCREDENTIALS_NAME));
+        HttpClient client = new HttpClient(new HttpClientProviderNamedCredentials(AUTH_NAMEDCREDENTIALS_NAME));
 
         // Act
-        HttpResponse res = client.patch(ENDPOINT, PAYLOAD_REQUEST);
+        HttpResponse res = (HttpResponse) client.patch(ENDPOINT, PAYLOAD_REQUEST);
 
         // Assert
-        System.assert(client.credentials instanceof NamedCredentialsProvider);
+        System.assert(client.credentials instanceof HttpClientProviderNamedCredentials);
         System.assertEquals(PAYLOAD_RESPONSE, res.getBody());
         System.assertEquals(200, res.getStatusCode());
     }
@@ -226,7 +226,7 @@ public class HttpClientTests {
         HttpClient client = new HttpClient();
 
         // Act
-        HttpResponse res = client.get(ENDPOINT);
+        HttpResponse res = (HttpResponse) client.get(ENDPOINT);
 
         // Assert
         System.assertEquals(null, client.credentials);
@@ -239,13 +239,13 @@ public class HttpClientTests {
         // Arange
         Test.setMock(HttpCalloutMock.class, new HttpClientBasicMock('GET'));
 
-        HttpClient client = new HttpClient(new BasicProvider(AUTH_BASIC_USERNAME, AUTH_BASIC_PASSWORD));
+        HttpClient client = new HttpClient(new HttpClientProviderBasic(AUTH_BASIC_USERNAME, AUTH_BASIC_PASSWORD));
 
         // Act
-        HttpResponse res = client.get(ENDPOINT);
+        HttpResponse res = (HttpResponse) client.get(ENDPOINT);
 
         // Assert
-        System.assert(client.credentials instanceof BasicProvider);
+        System.assert(client.credentials instanceof HttpClientProviderBasic);
         System.assertEquals(PAYLOAD_RESPONSE, res.getBody());
         System.assertEquals(200, res.getStatusCode());
     }
@@ -256,16 +256,16 @@ public class HttpClientTests {
         Test.setMock(HttpCalloutMock.class, new HttpClientOAuthMock('GET'));
 
         HttpClient client = new HttpClient(
-                new OAuthProvider(AUTH_OAUTH_ENDPOINT, new Map<String, String>{
+                new HttpClientProviderOAuth(AUTH_OAUTH_ENDPOINT, new Map<String, String>{
                         'clientId' => 'clientId_value',
                         'clientSecret' => 'clientSecret_value'
                 }));
 
         // Act
-        HttpResponse res = client.get(ENDPOINT);
+        HttpResponse res = (HttpResponse) client.get(ENDPOINT);
 
         // Assert
-        System.assert(client.credentials instanceof OAuthProvider);
+        System.assert(client.credentials instanceof HttpClientProviderOAuth);
         System.assertEquals(PAYLOAD_RESPONSE, res.getBody());
         System.assertEquals(200, res.getStatusCode());
         System.assertEquals(2, Limits.getCallouts());
@@ -276,13 +276,13 @@ public class HttpClientTests {
         // Arange
         Test.setMock(HttpCalloutMock.class, new HttpClientNamedCredentialsMock('GET'));
 
-        HttpClient client = new HttpClient(new NamedCredentialsProvider(AUTH_NAMEDCREDENTIALS_NAME));
+        HttpClient client = new HttpClient(new HttpClientProviderNamedCredentials(AUTH_NAMEDCREDENTIALS_NAME));
 
         // Act
-        HttpResponse res = client.get(ENDPOINT);
+        HttpResponse res = (HttpResponse) client.get(ENDPOINT);
 
         // Assert
-        System.assert(client.credentials instanceof NamedCredentialsProvider);
+        System.assert(client.credentials instanceof HttpClientProviderNamedCredentials);
         System.assertEquals(PAYLOAD_RESPONSE, res.getBody());
         System.assertEquals(200, res.getStatusCode());
     }
@@ -294,7 +294,7 @@ public class HttpClientTests {
         HttpClient client = new HttpClient();
 
         // Act
-        HttpResponse res = client.del(ENDPOINT);
+        HttpResponse res = (HttpResponse) client.del(ENDPOINT);
 
         // Assert
         System.assertEquals(null, client.credentials);
@@ -307,13 +307,13 @@ public class HttpClientTests {
         // Arange
         Test.setMock(HttpCalloutMock.class, new HttpClientBasicMock('DELETE'));
 
-        HttpClient client = new HttpClient(new BasicProvider(AUTH_BASIC_USERNAME, AUTH_BASIC_PASSWORD));
+        HttpClient client = new HttpClient(new HttpClientProviderBasic(AUTH_BASIC_USERNAME, AUTH_BASIC_PASSWORD));
 
         // Act
-        HttpResponse res = client.del(ENDPOINT);
+        HttpResponse res = (HttpResponse) client.del(ENDPOINT);
 
         // Assert
-        System.assert(client.credentials instanceof BasicProvider);
+        System.assert(client.credentials instanceof HttpClientProviderBasic);
         System.assertEquals(PAYLOAD_RESPONSE, res.getBody());
         System.assertEquals(200, res.getStatusCode());
     }
@@ -324,16 +324,16 @@ public class HttpClientTests {
         Test.setMock(HttpCalloutMock.class, new HttpClientOAuthMock('DELETE'));
 
         HttpClient client = new HttpClient(
-                new OAuthProvider(AUTH_OAUTH_ENDPOINT, new Map<String, String>{
+                new HttpClientProviderOAuth(AUTH_OAUTH_ENDPOINT, new Map<String, String>{
                         'clientId' => 'clientId_value',
                         'clientSecret' => 'clientSecret_value'
                 }));
 
         // Act
-        HttpResponse res = client.del(ENDPOINT);
+        HttpResponse res =(HttpResponse)  client.del(ENDPOINT);
 
         // Assert
-        System.assert(client.credentials instanceof OAuthProvider);
+        System.assert(client.credentials instanceof HttpClientProviderOAuth);
         System.assertEquals(PAYLOAD_RESPONSE, res.getBody());
         System.assertEquals(200, res.getStatusCode());
         System.assertEquals(2, Limits.getCallouts());
@@ -344,13 +344,13 @@ public class HttpClientTests {
         // Arange
         Test.setMock(HttpCalloutMock.class, new HttpClientNamedCredentialsMock('DELETE'));
 
-        HttpClient client = new HttpClient(new NamedCredentialsProvider(AUTH_NAMEDCREDENTIALS_NAME));
+        HttpClient client = new HttpClient(new HttpClientProviderNamedCredentials(AUTH_NAMEDCREDENTIALS_NAME));
 
         // Act
-        HttpResponse res = client.del(ENDPOINT);
+        HttpResponse res = (HttpResponse) client.del(ENDPOINT);
 
         // Assert
-        System.assert(client.credentials instanceof NamedCredentialsProvider);
+        System.assert(client.credentials instanceof HttpClientProviderNamedCredentials);
         System.assertEquals(PAYLOAD_RESPONSE, res.getBody());
         System.assertEquals(200, res.getStatusCode());
     }
@@ -362,7 +362,7 @@ public class HttpClientTests {
         HttpClient client = new HttpClient();
 
         // Act
-        HttpResponse res = client.head(ENDPOINT);
+        HttpResponse res = (HttpResponse) client.head(ENDPOINT);
 
         // Assert
         System.assertEquals(null, client.credentials);
@@ -375,13 +375,13 @@ public class HttpClientTests {
         // Arange
         Test.setMock(HttpCalloutMock.class, new HttpClientBasicMock('HEAD'));
 
-        HttpClient client = new HttpClient(new BasicProvider(AUTH_BASIC_USERNAME, AUTH_BASIC_PASSWORD));
+        HttpClient client = new HttpClient(new HttpClientProviderBasic(AUTH_BASIC_USERNAME, AUTH_BASIC_PASSWORD));
 
         // Act
-        HttpResponse res = client.head(ENDPOINT);
+        HttpResponse res = (HttpResponse) client.head(ENDPOINT);
 
         // Assert
-        System.assert(client.credentials instanceof BasicProvider);
+        System.assert(client.credentials instanceof HttpClientProviderBasic);
         System.assertEquals(PAYLOAD_RESPONSE, res.getBody());
         System.assertEquals(200, res.getStatusCode());
     }
@@ -392,16 +392,16 @@ public class HttpClientTests {
         Test.setMock(HttpCalloutMock.class, new HttpClientOAuthMock('HEAD'));
 
         HttpClient client = new HttpClient(
-                new OAuthProvider(AUTH_OAUTH_ENDPOINT, new Map<String, String>{
+                new HttpClientProviderOAuth(AUTH_OAUTH_ENDPOINT, new Map<String, String>{
                         'clientId' => 'clientId_value',
                         'clientSecret' => 'clientSecret_value'
                 }));
 
         // Act
-        HttpResponse res = client.head(ENDPOINT);
+        HttpResponse res = (HttpResponse) client.head(ENDPOINT);
 
         // Assert
-        System.assert(client.credentials instanceof OAuthProvider);
+        System.assert(client.credentials instanceof HttpClientProviderOAuth);
         System.assertEquals(PAYLOAD_RESPONSE, res.getBody());
         System.assertEquals(200, res.getStatusCode());
         System.assertEquals(2, Limits.getCallouts());
@@ -412,13 +412,13 @@ public class HttpClientTests {
         // Arange
         Test.setMock(HttpCalloutMock.class, new HttpClientNamedCredentialsMock('HEAD'));
 
-        HttpClient client = new HttpClient(new NamedCredentialsProvider(AUTH_NAMEDCREDENTIALS_NAME));
+        HttpClient client = new HttpClient(new HttpClientProviderNamedCredentials(AUTH_NAMEDCREDENTIALS_NAME));
 
         // Act
-        HttpResponse res = client.head(ENDPOINT);
+        HttpResponse res = (HttpResponse) client.head(ENDPOINT);
 
         // Assert
-        System.assert(client.credentials instanceof NamedCredentialsProvider);
+        System.assert(client.credentials instanceof HttpClientProviderNamedCredentials);
         System.assertEquals(PAYLOAD_RESPONSE, res.getBody());
         System.assertEquals(200, res.getStatusCode());
     }
