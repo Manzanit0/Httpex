@@ -37,8 +37,10 @@ public with sharing class HttpClient {
         HttpRequest request = new HttpRequest();
         request.setEndpoint(endpoint);
         request.setMethod(method);
-        request.setHeader('Content-Type', 'application/json;charset=UTF-8');
-        request.setBody(payload);
+        if(new String[]{'POST', 'PATCH', 'PUT'}.contains( method )){
+            request.setHeader('Content-Type', 'application/json;charset=UTF-8');
+            request.setBody(payload);
+        }
 
         if(credentials != null) {
             if(credentials instanceof NamedCredentialsProvider) {
