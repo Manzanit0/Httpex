@@ -57,7 +57,7 @@ public class HttpClientAura extends HttpClient {
         }
     }
     public Object parse(HttpResponse response){
-        if ( response.getStatusCode() == 200 ) {
+        if ( response.getStatusCode() < 300 ) {
             try {
                 return JSON.deserializeUntyped( response.getBody() );
             } catch( Exception e ){
