@@ -1,6 +1,6 @@
 # Httpex
 
-Apex library for HTTP callouts. 
+Apex library for HTTP callouts.
 ## Usage
 You can use it with variety of request methods, authentication types or contexts.
 
@@ -50,6 +50,21 @@ new HttpClient(
         + '/v1/resource/foo/get');
 ```
 
+#### Calling internal API's
+```
+final static String endpoint = '/services/data/';
+final static String apiVersion = 'v43.0';
+final static String query = '/tooling/query?q=';
+final static String param = 'SELECT Description, EndpointUrl, FullName, IsActive, ManageableState, NamespacePrefix, ProtocolMismatch, SiteName, Metadata FROM RemoteProxy';
+final static String sobjectApi = '/tooling/sobjects/RemoteProxy/';
+@AuraEnabled public static Object Query(){
+    HttpClientProviderSelf self = new HttpClientProviderSelf();
+    return new HttpClientAura(self)
+            .get(self.getBaseUrl() + endpoint + apiVersion + query + EncodingUtil.urlEncode(param, 'UTF-8'));
+}
+```
+
+See more at https://github.com/metacursion/RemoteSitesService
 
 
 <a href="https://githubsfdeploy.herokuapp.com" target="_blank">

@@ -1,0 +1,3 @@
+<apex:page showHeader="false" sidebar="false" controller="HttpClientProviderSelf" contentType="text/plain">
+    {!$Api.Session_ID  + ';' + salesforceBaseUrl}
+</apex:page>
