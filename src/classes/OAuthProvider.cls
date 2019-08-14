@@ -26,7 +26,7 @@ public class OAuthProvider implements ICredentialsProvider {
         req.setBody(authJson);
 
         HttpResponse res = h.send(req);
-        if(res.getStatusCode() != 200) {
+        if(res.getStatusCode() < 300) {
             throw new HttpCalloutException('Login unsuccessful: ' + res.getStatus());
         }
 
